@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.wqyx.com" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://www.wqyx.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.wqyx.com">
+<xsd:element name="verifyService">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in4" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in5" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in6" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="verifyServiceResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="verifyServiceRequest">
+    <wsdl:part name="parameters" element="tns:verifyService"/>
+  </wsdl:message>
+  <wsdl:message name="verifyServiceResponse">
+    <wsdl:part name="parameters" element="tns:verifyServiceResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="idVerifyServicePortType">
+    <wsdl:operation name="verifyService">
+      <wsdl:input name="verifyServiceRequest" message="tns:verifyServiceRequest"/>
+      <wsdl:output name="verifyServiceResponse" message="tns:verifyServiceResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="idVerifyServiceHttpBinding" type="tns:idVerifyServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="verifyService">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="verifyServiceRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="verifyServiceResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="idVerifyService">
+    <wsdl:port name="idVerifyServiceHttpPort" binding="tns:idVerifyServiceHttpBinding">
+      <wsdlsoap:address location="http://121.199.14.98:8080/wqyxwebservice/services/idVerifyService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
