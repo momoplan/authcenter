@@ -11,6 +11,7 @@ privileged aspect AuthInfo_Roo_ToString {
         StringBuilder sb = new StringBuilder();
         sb.append("CreateTime: ").append(getCreateTime()).append(", ");
         sb.append("Errorcode: ").append(getErrorcode()).append(", ");
+        sb.append("HasExist: ").append(getHasExist()).append(", ");
         sb.append("Id: ").append(getId()).append(", ");
         sb.append("Info: ").append(getInfo()).append(", ");
         sb.append("Status: ").append(getStatus()).append(", ");

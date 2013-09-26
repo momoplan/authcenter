@@ -47,6 +47,7 @@ public class AuthService implements ApplicationListener<ContextRefreshedEvent> {
 		AuthInfoPK pk = new AuthInfoPK(id, name);
 		AuthInfo authInfo = AuthInfo.findAuthInfo(pk);
 		if (authInfo != null) {
+			authInfo.setHasExist(true);
 			return authInfo;
 		} else {
 			String result = WqyxAuth.verifyService(uid, password, returnPhoto, serviceNo, id, name);
@@ -67,6 +68,7 @@ public class AuthService implements ApplicationListener<ContextRefreshedEvent> {
 				authInfo.setVerifyResult(verifyresultnode.getText());
 			}
 			authInfo.persist();
+			authInfo.setHasExist(false);
 			return authInfo;
 		}
 	}

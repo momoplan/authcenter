@@ -42,4 +42,14 @@ public class AuthInfo {
 	@Column(name = "CREATETIME")
 	private Date createTime;
 
+	private transient Boolean hasExist;
+
+	public Boolean getHasExist() {
+		return hasExist;
+	}
+
+	public void setHasExist(Boolean hasExist) {
+		this.hasExist = hasExist;
+	}
+
 }
