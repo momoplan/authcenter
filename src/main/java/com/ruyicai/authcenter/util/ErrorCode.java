@@ -12,6 +12,7 @@ public enum ErrorCode {
 	UserReg_MobileIdError("0019", "手机号错误"),
 	UserReg_EmailError("0020", "邮箱错误"),
 	UserReg_NicknameExists("100105", "昵称已存在"),
+	UserReg_IdNumError("100106", "身份证格式错误"),
 	
 	UserMod_UserNoEmpty("100001", "用户userno为空"),
 	UserMod_UserNotExists("100002", "用户不存在"),

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ruyicai.authcenter.exception.IDCardException;
 import com.ruyicai.authcenter.exception.RuyicaiException;
 import com.ruyicai.authcenter.service.AuthService;
 import com.ruyicai.authcenter.util.ErrorCode;
@@ -46,6 +47,10 @@ public class AuthController {
 			logger.error("/auth error id:" + id + "name:" + name, e);
 			rd.setValue(e.getMessage());
 			result = ErrorCode.ERROR;
+		} catch (IDCardException e) {
+			logger.error("/auth error id:" + id + "name:" + name, e);
+			rd.setValue(e.getMessage());
+			result = ErrorCode.UserReg_IdNumError;
 		} catch (Exception e) {
 			logger.error("/auth error id:" + id + "name:" + name, e);
 			result = ErrorCode.ERROR;

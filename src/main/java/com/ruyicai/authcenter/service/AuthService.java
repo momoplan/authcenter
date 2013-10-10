@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.ruyicai.authcenter.domain.AuthInfo;
 import com.ruyicai.authcenter.domain.AuthInfoPK;
 import com.ruyicai.authcenter.domain.UidPwd;
+import com.ruyicai.authcenter.util.IDCard;
 import com.ruyicai.authcenter.util.WqyxAuth;
 
 @Service
@@ -44,10 +45,32 @@ public class AuthService implements ApplicationListener<ContextRefreshedEvent> {
 		if (StringUtils.isBlank(id) || StringUtils.isBlank(name)) {
 			throw new IllegalArgumentException("the arguments id or name are require!");
 		}
+		IDCard.IDCardValidate(id);
 		AuthInfoPK pk = new AuthInfoPK(id, name);
 		AuthInfo authInfo = AuthInfo.findAuthInfo(pk);
 		if (authInfo != null) {
-			authInfo.setHasExist(true);
+			// 如果状态为-1,则是第三方服务器错误,重新查询
+			if (authInfo.getStatus() != null && authInfo.getStatus().equals("-1")) {
+				String result = WqyxAuth.verifyService(uid, password, returnPhoto, serviceNo, id, name);
+				Document document = DocumentHelper.parseText(result);
+				authInfo.setInfo(result);
+				authInfo.setCreateTime(new Date());
+				Node statusnode = document.selectSingleNode("//serviceresponse/status");
+				String status = statusnode.getText();
+				authInfo.setStatus(status);
+				if (status != null && status.equals("-1")) {
+					Node errorcodenode = document.selectSingleNode("//serviceresponse/errorcode");
+					authInfo.setErrorcode(errorcodenode.getText());
+				}
+				if (status != null && status.equals("0")) {
+					Node verifyresultnode = document.selectSingleNode("//serviceresponse/verifyresult");
+					authInfo.setVerifyResult(verifyresultnode.getText());
+				}
+				authInfo.merge();
+				authInfo.setHasExist(false);
+			} else {
+				authInfo.setHasExist(true);
+			}
 			return authInfo;
 		} else {
 			String result = WqyxAuth.verifyService(uid, password, returnPhoto, serviceNo, id, name);
