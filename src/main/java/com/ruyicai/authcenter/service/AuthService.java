@@ -12,8 +12,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
 import com.ruyicai.authcenter.domain.AuthInfo;
