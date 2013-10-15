@@ -2,6 +2,8 @@ package com.ruyicai.authcenter.service;
 
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
@@ -21,7 +23,7 @@ import com.ruyicai.authcenter.util.IDCard;
 import com.ruyicai.authcenter.util.WqyxAuth;
 
 @Service
-public class AuthService implements ApplicationListener<ContextRefreshedEvent> {
+public class AuthService {
 
 	private Logger logger = LoggerFactory.getLogger(AuthService.class);
 
@@ -30,8 +32,8 @@ public class AuthService implements ApplicationListener<ContextRefreshedEvent> {
 	private String returnPhoto = "1";
 	private String serviceNo = "02";
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedEvent event) {
+	@PostConstruct
+	public void init() {
 		UidPwd uidPwd = UidPwd.findUidPwd(uid);
 		if (uidPwd == null) {
 			logger.error("身份认证账号密码加载失败");
